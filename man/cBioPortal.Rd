@@ -314,11 +314,13 @@ getGenePanel(api = cbio, genePanelId = "IMPACT341")
 
 queryGeneTable(api = cbio, by = "entrezGeneId", genes = 7157)
 
+clinicalData(cbio, "acc_tcga")
+
 
 getDataByGenes(
     cbio, studyId = "acc_tcga", genes = 1:3,
     by = c("entrezGeneId", "hugoGeneSymbol"),
-    molecularProfileId = "acc_tcga_rppa",
+    molecularProfileIds = "acc_tcga_rppa",
     sampleListId = "acc_tcga_rppa"
 )
 

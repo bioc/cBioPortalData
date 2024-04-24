@@ -214,6 +214,9 @@ getStudies <- function(api, buildReport = FALSE) {
 #' @section Patient Data:
 #'      * clinicalData - Obtain clinical data for a particular study identifier
 #'      ('studyId')
+#' 
+#' @examples
+#' clinicalData(cbio, "acc_tcga")
 #'
 #' @export
 clinicalData <- function(api, studyId = NA_character_) {
@@ -676,7 +679,7 @@ queryGeneTable <- function(
 #' getDataByGenes(
 #'     cbio, studyId = "acc_tcga", genes = 1:3,
 #'     by = c("entrezGeneId", "hugoGeneSymbol"),
-#'     molecularProfileId = "acc_tcga_rppa",
+#'     molecularProfileIds = "acc_tcga_rppa",
 #'     sampleListId = "acc_tcga_rppa"
 #' )
 #'
