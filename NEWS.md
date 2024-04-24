@@ -1,3 +1,9 @@
+## Changes in version 2.16.0
+
+### Bug fixes and minor improvements
+
+* Improvements to links in documentation and citation section in the vignette
+
 ## Changes in version 2.14.0
 
 ### Bug fixes and minor improvements
