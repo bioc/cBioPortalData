@@ -1,4 +1,4 @@
-citHeader("To cite curatedTCGAData in publications, use:")
+citHeader("To cite cBioPortalData in publications, use:")
 
 bibentry(
     bibtype = "Article",
