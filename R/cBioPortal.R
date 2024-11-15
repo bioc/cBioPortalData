@@ -214,7 +214,7 @@ getStudies <- function(api, buildReport = FALSE) {
 #' @section Patient Data:
 #'      * clinicalData - Obtain clinical data for a particular study identifier
 #'      ('studyId')
-#' 
+#'
 #' @examples
 #' clinicalData(cbio, "acc_tcga")
 #'
@@ -223,29 +223,20 @@ clinicalData <- function(api, studyId = NA_character_) {
     if (missing(api))
         stop("Provide a valid 'api' from 'cBioPortal()'")
 
-    studyId <- force(studyId)
-    digi <- digest::digest(list("clinicalData", api, studyId))
-    cacheloc <- .getHashCache(digi)
-    if (file.exists(cacheloc)) {
-        load(cacheloc)
-    } else {
-        atts <- .invoke_bind(
-            api = api, name = "fetchAllClinicalDataInStudyUsingPOST",
-            use_cache = FALSE, clinicalDataType = "PATIENT", studyId = studyId
-        )
-        att_tab <- tidyr::pivot_wider(data = atts, id_cols = "patientId",
-            names_from = "clinicalAttributeId", values_from = "value")
-        clin <- .invoke_bind(
-            api = api, name = "getAllClinicalDataInStudyUsingGET",
-            use_cache = FALSE, studyId = studyId
-        )
-        clin_tab <- tidyr::pivot_wider(data = clin,
-            id_cols = c("patientId", "sampleId"),
-            names_from = "clinicalAttributeId", values_from = "value")
-        full <-    dplyr::full_join(att_tab, clin_tab, by = "patientId")
-        save(full, file = cacheloc)
-    }
-    full
+    atts <- .invoke_bind(
+        api = api, name = "fetchAllClinicalDataInStudyUsingPOST",
+        use_cache = FALSE, clinicalDataType = "PATIENT", studyId = studyId
+    )
+    att_tab <- tidyr::pivot_wider(data = atts, id_cols = "patientId",
+        names_from = "clinicalAttributeId", values_from = "value")
+    clin <- .invoke_bind(
+        api = api, name = "getAllClinicalDataInStudyUsingGET",
+        use_cache = FALSE, studyId = studyId
+    )
+    clin_tab <- tidyr::pivot_wider(data = clin,
+        id_cols = c("patientId", "sampleId"),
+        names_from = "clinicalAttributeId", values_from = "value")
+    dplyr::full_join(att_tab, clin_tab, by = "patientId")
 }
 
 #' @name cBioPortal
@@ -351,11 +342,11 @@ mutationData <- function(api, molecularProfileIds = NA_character_,
         stop("Provide a character vector of 'entrezGeneIds'")
     if (is.null(sampleIds))
         stop("Provide a character vector of 'sampleIds'")
-    
+
     if (length(molecularProfileIds) > 1L) {
         SampMolIds <- .sampleMolIds(molecularProfileIds, sampleIds)
     }
-    
+
     if (length(molecularProfileIds) == 1L) {
         endpoint <- "fetchMutationsInMolecularProfileUsingPOST"
         byGene <- .invoke_bind(
@@ -371,13 +362,13 @@ mutationData <- function(api, molecularProfileIds = NA_character_,
             molecularProfileIds = molecularProfileIds,
             sampleMolecularIdentifiers = SampMolIds
         )
-    } 
+    }
     if (!length(molecularProfileIds) || !length(byGene))
         structure(
             vector("list", length(molecularProfileIds)),
             .Names = molecularProfileIds
         )
-    else    
+    else
         split(byGene, byGene[["molecularProfileId"]])
 }
 
@@ -418,13 +409,13 @@ molecularData <- function(api, molecularProfileIds = NA_character_,
                 molecularProfileIds, sampleIds
             )
         )
-    } 
+    }
     if (!length(molecularProfileIds) || !length(byGene))
         structure(
             vector("list", length(molecularProfileIds)),
             .Names = molecularProfileIds
         )
-    else    
+    else
         split(byGene, byGene[["molecularProfileId"]])
 }
 
@@ -700,27 +691,16 @@ getDataByGenes <-
 
     feats <- queryGeneTable(api, by, genes, genePanelId)
 
-    digi <- digest::digest(
-        list("getDataByGenes", api, studyId, feats, sampleIds,
-            molecularProfileIds)
+    molData <- fetchData(
+        api = api,
+        molecularProfileIds = molecularProfileIds,
+        entrezGeneIds = feats[["entrezGeneId"]],
+        sampleIds = sampleIds
     )
-    cacheloc <- .getHashCache(digi)
-    if (file.exists(cacheloc)) {
-        load(cacheloc)
-    } else {
-        molData <- fetchData(
-            api = api,
-            molecularProfileIds = molecularProfileIds,
-            entrezGeneIds = feats[["entrezGeneId"]],
-            sampleIds = sampleIds
-        )
-        molData <- lapply(
-            molData,
-            function(x) suppressMessages({
-                dplyr::left_join(x, feats)
-            })
-        )
-        save(molData, file = cacheloc)
-    }
-    molData
+    molData <- lapply(
+        molData,
+        function(x) suppressMessages({
+            dplyr::left_join(x, feats)
+        })
+    )
 }

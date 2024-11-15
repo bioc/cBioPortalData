@@ -2,9 +2,11 @@
     api, by, genePanelId, genes, studyId, molecularProfileIds,
     sampleListId, sampleIds
 ) {
-    expers <- getDataByGenes(api, genes = genes, genePanelId = genePanelId,
+    expers <- getDataByGenes(
+        api = api, genes = genes, genePanelId = genePanelId,
         studyId = studyId, molecularProfileIds = molecularProfileIds,
-        sampleListId = sampleListId, sampleIds = sampleIds, by = by)
+        sampleListId = sampleListId, sampleIds = sampleIds, by = by
+    )
 
     sampmap <- lapply(expers, function(x) {
         if (length(x)) {
@@ -248,21 +250,16 @@ cBioPortalData <-
 
     by <- match.arg(by)
 
-    formals <- formals()
-    formals[["by"]] <- by
-    call <- std.args(match.call(), formals)
-    exargs <- match.args(.portalExperiments, call)
-    exargs <- eval.args(exargs)
-    exargs <- update.args(exargs)
-
     if (check_build)
-        .is_study_id_building(exargs[["studyId"]], "api_build", ask = ask)
+        .is_study_id_building(cancer_study_id = studyId, "api_build", ask = ask)
 
-    lists <- do.call(.portalExperiments, exargs)
+    lists <- .portalExperiments(
+        api = api, by = by, genePanelId = genePanelId, genes = genes,
+        studyId = studyId, molecularProfileIds = molecularProfileIds,
+        sampleListId = sampleListId, sampleIds = sampleIds
+    )
 
-    clinargs <- match.args(clinicalData, call)
-    clinargs <- eval.args(clinargs)
-    clin <- do.call(clinicalData, clinargs)
+    clin <- clinicalData(api = api, studyId = studyId)
     clin <- as(clin, "DataFrame")
 
     # resolve duplicate IDs

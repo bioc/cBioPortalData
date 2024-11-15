@@ -226,31 +226,12 @@ endpoint_map <- data.frame(
     stringsAsFactors = FALSE
 )
 
-.dollarCache <- function(appname, ...) {
-    if (!is.list(appname))
-        stop("<internal> Provide a list input as 'api$name'")
-    digi <- digest::digest(list(appname, ...))
-    loc <- .getHashCache(digi)
-    if (file.exists(loc)) {
-        load(loc)
-    } else {
-        op <- do.call(`$`, appname)(...)
-        save(op, file = loc, compress = FALSE)
-    }
-    op
-}
-
 .invoke_fun <- function(api, name, use_cache = FALSE, ...) {
     if (!is(api, "cBioPortal"))
         stop("Provide a 'cBioPortal' class API object")
-
-    if (use_cache) {
-        .dollarCache(list(api, name), ...)
-    } else {
-        res <- do.call(`$`, list(api, name))(...)
-        httr::stop_for_status(res)
-        res
-    }
+    res <- do.call(`$`, list(api, name))(...)
+    httr::stop_for_status(res)
+    res
 }
 
 .bind_content <- function(x) {
