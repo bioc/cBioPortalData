@@ -4,7 +4,6 @@
 \alias{cBioCache}
 \alias{setCache}
 \alias{removePackCache}
-\alias{removeDataCache}
 \title{Manage cache / download directories for study data}
 \usage{
 cBioCache(..., ask = interactive())
@@ -16,19 +15,6 @@ setCache(
 )
 
 removePackCache(cancer_study_id, dry.run = TRUE)
-
-removeDataCache(
-  api,
-  studyId = NA_character_,
-  genePanelId = NA_character_,
-  genes = NA_character_,
-  molecularProfileIds = NULL,
-  sampleListId = NULL,
-  sampleIds = NULL,
-  by = c("entrezGeneId", "hugoGeneSymbol"),
-  dry.run = TRUE,
-  ...
-)
 }
 \arguments{
 \item{...}{For \code{cBioCache}, arguments passed to \code{setCache}}
@@ -44,42 +30,14 @@ future downloads will go to this folder.}
 \item{cancer_study_id}{character(1) The \code{studyId} from \code{getStudies}}
 
 \item{dry.run}{logical Whether or not to remove cache files (default TRUE).}
-
-\item{api}{An API object of class `cBioPortal` from the `cBioPortal`
-function}
-
-\item{studyId}{character(1) Indicates the "studyId" as taken from
-`getStudies`}
-
-\item{genePanelId}{character(1) Identifies the gene panel, as obtained
-from the `genePanels` function}
-
-\item{genes}{character() Either Entrez gene identifiers or Hugo gene
-symbols. When included, the 'by' argument indicates the type of
-identifier provided and 'genePanelId' is ignored. Preference is
-given to Entrez IDs due to faster query responses.}
-
-\item{molecularProfileIds}{character() A vector of molecular profile IDs}
-
-\item{sampleListId}{character(1) A sample list identifier as obtained from
-`sampleLists()``}
-
-\item{sampleIds}{character() Sample identifiers}
-
-\item{by}{character(1) Either 'entrezGeneId' or 'hugoGeneSymbol' for row
-metadata (default: 'entrezGeneId')}
 }
 \value{
 cBioCache: The path to the cache location
-
-removeDataCache: The path to the cache location when
-  `dry.run = FALSE` if the file exists. Otherwise, when `dry.run = TRUE`,
-  the function return the output of the `file.remove` operation.
 }
 \description{
 Managing data downloads is important to save disk space and
-re-downloading data files. This can be done effortlessly via the integrated
-BiocFileCache system.
+avoid re-downloading data files. This can be done via the integrated
+\code{BiocFileCache} system.
 }
 \section{cBioCache}{
 
@@ -110,25 +68,5 @@ cache. This only works for the \code{cBioDataPack} function. To remove the entir
 cBioCache()
 
 removePackCache("acc_tcga", dry.run = TRUE)
-
-
-cbio <- cBioPortal()
-
-cBioPortalData(
-    cbio, by = "hugoGeneSymbol",
-    studyId = "acc_tcga",
-    genePanelId = "AmpliSeq",
-    molecularProfileIds =
-        c("acc_tcga_rppa", "acc_tcga_linear_CNA", "acc_tcga_mutations")
-)
-
-removeDataCache(
-    cbio, by = "hugoGeneSymbol",
-    studyId = "acc_tcga",
-    genePanelId = "AmpliSeq",
-    molecularProfileIds =
-        c("acc_tcga_rppa", "acc_tcga_linear_CNA", "acc_tcga_mutations"),
-    dry.run = TRUE
-)
 
 }

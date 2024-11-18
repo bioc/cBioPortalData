@@ -18,6 +18,7 @@ Depends: R (>= 4.2.0),
     AnVIL (>= 1.7.1),
     MultiAssayExperiment
 Imports:
+    BiocBaseUtils,
     BiocFileCache (>= 1.5.3),
     digest,
     dplyr,

@@ -31,8 +31,8 @@
 #' @title Manage cache / download directories for study data
 #'
 #' @description Managing data downloads is important to save disk space and
-#' re-downloading data files. This can be done effortlessly via the integrated
-#' BiocFileCache system.
+#'   avoid re-downloading data files. This can be done via the integrated
+#'   `BiocFileCache` system.
 #'
 #' @section cBioCache:
 #' Get the directory location of the cache. It will prompt the user to create
@@ -163,11 +163,25 @@ removePackCache <- function(cancer_study_id, dry.run = TRUE) {
     .getHashCache(digi)
 }
 
-#' @rdname cBioCache
+#' @name cBioCache-deprecated
+#'
+#' @title Deprecated cache helper functions
+#'
+#' @description `cBioPortalData` no longer caches data from API responses;
+#'   therefore, `removeDataCache` is no longer needed. It will be removed
+#'   as soon as the next release of Bioconductor.
 #'
 #' @inheritParams cBioPortalData
-#'
 #' @inheritParams cBioPortal
+#' @inheritParams cBioCache
+#'
+#' @importFrom BiocBaseUtils lifeCycle
+#'
+#' @section removeDataCache:
+#' Remove the computed cache location based on the function inputs to
+#' `cBioPortalData()`. To remove the cache, simply replace the
+#' `cBiocPortalData()` function name with `removeDataCache()`; see the example.
+#' If the computed cache location is not found, it will return an empty vector.
 #'
 #' @examples
 #'
@@ -204,6 +218,11 @@ removeDataCache <- function(api, studyId = NA_character_,
 {
     if (missing(api))
         stop("Provide a valid 'api' from 'cBioPortal()'")
+
+    lifeCycle(
+        package = "cBioPortalData",
+        title = "cBioCache"
+    )
 
     by <- match.arg(by)
 
