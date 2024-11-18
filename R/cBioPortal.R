@@ -225,13 +225,13 @@ clinicalData <- function(api, studyId = NA_character_) {
 
     atts <- .invoke_bind(
         api = api, name = "fetchAllClinicalDataInStudyUsingPOST",
-        use_cache = FALSE, clinicalDataType = "PATIENT", studyId = studyId
+        clinicalDataType = "PATIENT", studyId = studyId
     )
     att_tab <- tidyr::pivot_wider(data = atts, id_cols = "patientId",
         names_from = "clinicalAttributeId", values_from = "value")
     clin <- .invoke_bind(
         api = api, name = "getAllClinicalDataInStudyUsingGET",
-        use_cache = FALSE, studyId = studyId
+        studyId = studyId
     )
     clin_tab <- tidyr::pivot_wider(data = clin,
         id_cols = c("patientId", "sampleId"),
@@ -258,7 +258,7 @@ molecularProfiles <- function(api, studyId = NA_character_,
     projection <- match.arg(projection)
     mols <- .invoke_fun(
         api = api, name = "getAllMolecularProfilesInStudyUsingGET",
-        use_cache = FALSE, studyId = studyId, projection = projection
+        studyId = studyId, projection = projection
     )
     cmols <- httr::content(mols)
     if (projection %in% c("SUMMARY", "ID"))
@@ -350,7 +350,7 @@ mutationData <- function(api, molecularProfileIds = NA_character_,
     if (length(molecularProfileIds) == 1L) {
         endpoint <- "fetchMutationsInMolecularProfileUsingPOST"
         byGene <- .invoke_bind(
-            api, endpoint, use_cache = FALSE,
+            api, endpoint,
             molecularProfileId = molecularProfileIds,
             entrezGeneIds = sort(entrezGeneIds),
             sampleIds = sort(sampleIds)
@@ -358,7 +358,7 @@ mutationData <- function(api, molecularProfileIds = NA_character_,
     } else if (length(molecularProfileIds)) {
         endpoint <- "fetchMutationsInMultipleMolecularProfilesUsingPOST"
         byGene <- .invoke_bind(
-            api, endpoint, use_cache = FALSE,
+            api, endpoint,
             molecularProfileIds = molecularProfileIds,
             sampleMolecularIdentifiers = SampMolIds
         )
@@ -393,7 +393,6 @@ molecularData <- function(api, molecularProfileIds = NA_character_,
         endpoint <- "fetchAllMolecularDataInMolecularProfileUsingPOST"
         byGene <- .invoke_bind(api,
             endpoint,
-            use_cache = FALSE,
             molecularProfileId = molecularProfileIds,
             entrezGeneIds = sort(entrezGeneIds),
             sampleIds = sort(sampleIds)
@@ -402,7 +401,6 @@ molecularData <- function(api, molecularProfileIds = NA_character_,
         endpoint <- "fetchMolecularDataInMultipleMolecularProfilesUsingPOST"
         byGene <- .invoke_bind(api,
             endpoint,
-            use_cache = FALSE,
             projection = "SUMMARY",
             entrezGeneIds = sort(entrezGeneIds),
             sampleMolecularIdentifiers = .sampleMolIds(
@@ -450,7 +448,7 @@ samplesInSampleLists <-
         .Names = sampleListIds)
     res <- lapply(sampleListIds, function(x) {
         res <- .invoke_fun(
-            api, "getSampleListUsingGET", FALSE, sampleListId = x
+            api, "getSampleListUsingGET", sampleListId = x
         )
         res2 <- httr::content(res)
         meta[[x]] <<- res2[names(res2) != "sampleIds"]
@@ -472,7 +470,7 @@ samplesInSampleLists <-
 sampleLists <- function(api, studyId = NA_character_) {
     if (missing(api))
         stop("Provide a valid 'api' from 'cBioPortal()'")
-    .invoke_bind(api, "getAllSampleListsInStudyUsingGET", FALSE,
+    .invoke_bind(api, "getAllSampleListsInStudyUsingGET",
         studyId = studyId)
 }
 
@@ -485,7 +483,7 @@ sampleLists <- function(api, studyId = NA_character_) {
 allSamples <- function(api, studyId = NA_character_) {
     if (missing(api))
         stop("Provide a valid 'api' from 'cBioPortal()'")
-    .invoke_bind(api, "getAllSamplesInStudyUsingGET", FALSE,
+    .invoke_bind(api, "getAllSamplesInStudyUsingGET",
         studyId = list(studyId = studyId))
 }
 
@@ -511,7 +509,7 @@ getSampleInfo <-
             )
         )
 
-    .invoke_bind(api = api, name = "fetchSamplesUsingPOST", use_cache = FALSE,
+    .invoke_bind(api = api, name = "fetchSamplesUsingPOST",
         projection = projection, sampleIdentifiers = queryobj
     )
 }
@@ -526,7 +524,7 @@ genePanels <- function(api) {
     if (missing(api))
         stop("Provide a valid 'api' from 'cBioPortal()'")
 
-    .invoke_bind(api, "getAllGenePanelsUsingGET", FALSE)
+    .invoke_bind(api, "getAllGenePanelsUsingGET")
 }
 
 #' @name cBioPortal
@@ -539,8 +537,7 @@ getGenePanel <- function(api, genePanelId = NA_character_) {
     if (missing(api))
         stop("Provide a valid 'api' from 'cBioPortal()'")
 
-    res <- .invoke_fun(api, "getGenePanelUsingGET", FALSE,
-        genePanelId = genePanelId)
+    res <- .invoke_fun(api, "getGenePanelUsingGET", genePanelId = genePanelId)
     res <- httr::content(res)[["genes"]]
     dplyr::bind_rows(res)
 }
@@ -563,12 +560,12 @@ genePanelMolecular <-
         stop("Provide a valid 'api' from 'cBioPortal()'")
 
     if (!is.null(sampleListId))
-        .invoke_bind(api, "getGenePanelDataUsingPOST", use_cache = FALSE,
+        .invoke_bind(api, "getGenePanelDataUsingPOST",
             molecularProfileId = molecularProfileId,
             sampleListId = list(sampleListId = sampleListId)
         )
     else if (!is.null(sampleIds))
-        .invoke_bind(api, "getGenePanelDataUsingPOST", use_cache = FALSE,
+        .invoke_bind(api, "getGenePanelDataUsingPOST",
             molecularProfileId = molecularProfileId,
             sampleIds = list(sampleIds = sort(sampleIds))
         )
@@ -601,7 +598,6 @@ getGenePanelMolecular <-
     .invoke_bind(
         api = api,
         name = "fetchGenePanelDataInMultipleMolecularProfilesUsingPOST",
-        use_cache = FALSE,
         sampleMolecularIdentifiers =
             list(sampleMolecularIdentifiers = SampMolIds)
     )
@@ -624,7 +620,7 @@ geneTable <- function(api, pageSize = 1000, pageNumber = 0, ...) {
     if (missing(api))
         stop("Provide a valid 'api' from 'cBioPortal()'")
 
-    .invoke_bind(api, "getAllGenesUsingGET", FALSE, pageSize = pageSize,
+    .invoke_bind(api, "getAllGenesUsingGET", pageSize = pageSize,
         pageNumber = pageNumber, ...)
 }
 
@@ -652,7 +648,7 @@ queryGeneTable <- function(
     )
 
     if (!all.na(genes))
-        .invoke_bind(api, "fetchGenesUsingPOST", TRUE,
+        .invoke_bind(api, "fetchGenesUsingPOST",
             geneIdType = geneIdType, geneIds = as.character(genes))
     else
         getGenePanel(api, genePanelId = genePanelId)

@@ -226,7 +226,7 @@ endpoint_map <- data.frame(
     stringsAsFactors = FALSE
 )
 
-.invoke_fun <- function(api, name, use_cache = FALSE, ...) {
+.invoke_fun <- function(api, name, ...) {
     if (!is(api, "cBioPortal"))
         stop("Provide a 'cBioPortal' class API object")
     res <- do.call(`$`, list(api, name))(...)
@@ -240,7 +240,7 @@ endpoint_map <- data.frame(
     )
 }
 
-.invoke_bind <- function(api, name, use_cache, ...)  {
-    .bind_content(.invoke_fun(api, name, use_cache, ...))
+.invoke_bind <- function(api, name, ...)  {
+    .bind_content(.invoke_fun(api, name, ...))
 }
 
