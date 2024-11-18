@@ -71,6 +71,10 @@ metadata (default: 'entrezGeneId')}
 }
 \value{
 cBioCache: The path to the cache location
+
+removeDataCache: The path to the cache location when
+  `dry.run = FALSE` if the file exists. Otherwise, when `dry.run = TRUE`,
+  the function return the output of the `file.remove` operation.
 }
 \description{
 Managing data downloads is important to save disk space and

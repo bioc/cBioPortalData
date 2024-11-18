@@ -190,6 +190,10 @@ removePackCache <- function(cancer_study_id, dry.run = TRUE) {
 #'     dry.run = TRUE
 #' )
 #'
+#' @returns removeDataCache: The path to the cache location when
+#'   `dry.run = FALSE` if the file exists. Otherwise, when `dry.run = TRUE`,
+#'   the function return the output of the `file.remove` operation.
+#'
 #' @export
 removeDataCache <- function(api, studyId = NA_character_,
     genePanelId = NA_character_, genes = NA_character_,
@@ -216,6 +220,6 @@ removeDataCache <- function(api, studyId = NA_character_,
 
     if (!dry.run)
         vapply(cachelocs, file.remove, logical(1L))
-
-    cachelocs
+    else
+        cachelocs[vapply(cachelocs, file.exists, logical(1L))]
 }
