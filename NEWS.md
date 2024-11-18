@@ -1,3 +1,10 @@
+## Changes in version 2.20.0
+
+### New features
+
+* Caching calls removed from `cBioPortalData`. API requests will always
+be performed. `cBioDataPack` will continue to cache data files.
+
 ## Changes in version 2.16.0
 
 ### Bug fixes and minor improvements
