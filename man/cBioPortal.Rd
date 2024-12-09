@@ -122,14 +122,14 @@ the hostname (default: '/api/v2/api-docs')}
 \item{token}{character(1) The Authorization Bearer token e.g.,
 "63eba81c-2591-4e15-9d1c-fb6e8e51e35d" or a path to text file.}
 
-\item{api}{An API object of class `cBioPortal` from the `cBioPortal`
+\item{api}{An API object of class \code{cBioPortal} from the \code{cBioPortal}
 function}
 
 \item{buildReport}{logical(1) Indicates whether to append the build
-information to the `getStudies()` table (default FALSE)}
+information to the \code{getStudies()} table (default FALSE)}
 
 \item{studyId}{character(1) Indicates the "studyId" as taken from
-`getStudies`}
+\code{getStudies}}
 
 \item{projection}{character(default: "SUMMARY") Specify the projection
 type for data retrieval for details see API documentation}
@@ -144,10 +144,10 @@ type for data retrieval for details see API documentation}
 available operations}
 
 \item{sampleListIds}{character() A vector of 'sampleListId' as obtained from
-`sampleLists`}
+\code{sampleLists}}
 
 \item{genePanelId}{character(1) Identifies the gene panel, as obtained
-from the `genePanels` function}
+from the \code{genePanels} function}
 
 \item{molecularProfileId}{character(1) Indicates a molecular profile ID}
 
@@ -169,106 +169,107 @@ identifier provided and 'genePanelId' is ignored. Preference is
 given to Entrez IDs due to faster query responses.}
 }
 \value{
-cBioPortal: An API object of class 'cBioPortal'
+\if{html}{\out{<div class="sourceCode">}}\preformatted{cBioPortal: An API object of class 'cBioPortal'
 
-    cBioPortalData: A data object of class 'MultiAssayExperiment'
+cBioPortalData: A data object of class 'MultiAssayExperiment'
+}\if{html}{\out{</div>}}
 }
 \description{
 This section of the documentation lists the functions that
-    allow users to access the cBioPortal API. The main representation of the
-    API can be obtained from the `cBioPortal` function. The supporting
-    functions listed here give access to specific parts of the API and
-    allow the user to explore the API with individual calls. Many of the
-    functions here are listed for documentation purposes and are
-    recommended for advanced usage only. Users should only need to use the
-    `cBioPortalData` main function to obtain data.
+allow users to access the cBioPortal API. The main representation of the
+API can be obtained from the \code{cBioPortal} function. The supporting
+functions listed here give access to specific parts of the API and
+allow the user to explore the API with individual calls. Many of the
+functions here are listed for documentation purposes and are
+recommended for advanced usage only. Users should only need to use the
+\code{cBioPortalData} main function to obtain data.
 }
 \section{API Metadata}{
 
-    * getStudies - Obtain a table of studies and associated metadata and
-    optionally include a `buildReport` status (default FALSE) for each
-    study. When enabled, the 'api_build' and 'pack_build' columns will
-    be added to the table and will show if `MultiAssayExperiment` objects
-    can be generated for that particular study identifier (`studyId`). The
-    'api_build' column corresponds to datasets obtained with
-    `cBioPortalData` and the 'pack_build' column corresponds to datsets
-    loaded via `cBioDataPack`.
+* getStudies - Obtain a table of studies and associated metadata and
+optionally include a \code{buildReport} status (default FALSE) for each
+study. When enabled, the 'api_build' and 'pack_build' columns will
+be added to the table and will show if \code{MultiAssayExperiment} objects
+can be generated for that particular study identifier (\code{studyId}). The
+'api_build' column corresponds to datasets obtained with
+\code{cBioPortalData} and the 'pack_build' column corresponds to datsets
+loaded via \code{cBioDataPack}.
 
 
-    * searchOps - Search through API operations with a keyword
+* searchOps - Search through API operations with a keyword
 
 
-    * sampleLists - obtain all `sampleListIds` for a particular `studyId`
+* sampleLists - obtain all \code{sampleListIds} for a particular \code{studyId}
 
 
-    * allSamples - obtain all samples within a particular `studyId`
+* allSamples - obtain all samples within a particular \code{studyId}
 
 
-    * genePanels - Show all available gene panels
+* genePanels - Show all available gene panels
 
 
-    * geneTable - Get a table of all genes by 'entrezGeneId' and
-    'hugoGeneSymbol'
+* geneTable - Get a table of all genes by 'entrezGeneId' and
+'hugoGeneSymbol'
 
 
-    * queryGeneTable - Get a table for only the `genes` or `genePanelId` of
-    interest. Gene inputs are identified with the `by` argument
+* queryGeneTable - Get a table for only the \code{genes} or \code{genePanelId} of
+interest. Gene inputs are identified with the \code{by} argument
 }
 
 \section{Patient Data}{
 
-     * clinicalData - Obtain clinical data for a particular study identifier
-     ('studyId')
+* clinicalData - Obtain clinical data for a particular study identifier
+('studyId')
 }
 
 \section{Molecular Profiles}{
 
-     * molecularProfiles - Produce a molecular profiles dataset for a given
-     study identifier ('studyId')
+* molecularProfiles - Produce a molecular profiles dataset for a given
+study identifier ('studyId')
 }
 
 \section{Molecular Data}{
 
-    * fetchData - A convenience function to download both mutation and
-    molecular data with `molecularProfileId`, `entrezGeneIds`, and
-    `sampleIds`
+* fetchData - A convenience function to download both mutation and
+molecular data with \code{molecularProfileId}, \code{entrezGeneIds}, and
+\code{sampleIds}
 
 
-    * mutationData - Produce a dataset of mutation data using
-    `molecularProfileId`, `entrezGeneIds`, and `sampleIds`
+* mutationData - Produce a dataset of mutation data using
+\code{molecularProfileId}, \code{entrezGeneIds}, and \code{sampleIds}
 
 
-    * molecularData - Produce a dataset of molecular profile data based on
-    `molecularProfileId`, `entrezGeneIds`, and `sampleIds`
+* molecularData - Produce a dataset of molecular profile data based on
+\code{molecularProfileId}, \code{entrezGeneIds}, and \code{sampleIds}
 }
 
 \section{Sample Data}{
 
-    * samplesInSampleLists - get all samples associated with a 'sampleListId'
+* samplesInSampleLists - get all samples associated with a 'sampleListId'
 
 
-    * getSampleInfo - Obtain sample metadata for a particular `studyId` or
-    `sampleListId`
+* getSampleInfo - Obtain sample metadata for a particular \code{studyId} or
+\code{sampleListId}
 }
 
 \section{Gene Panels}{
 
-    * getGenePanels - Obtain the gene panel for a particular 'genePanelId'
+* getGenePanels - Obtain the gene panel for a particular 'genePanelId'
 
 
-    * genePanelMolecular - get gene panel data for a particular
-    `molecularProfileId` and either a vector of `sampleListId` or `sampleId`
+* genePanelMolecular - get gene panel data for a particular
+\code{molecularProfileId} and either a vector of \code{sampleListId} or \code{sampleId}
 
 
-    * getGenePanelMolecular - get gene panel data for multiple
-    `molecularProfileId`s and a vector of `sampleIds`
+* getGenePanelMolecular - get gene panel data for multiple
+\code{molecularProfileId}s and a vector of \code{sampleIds}
 }
 
 \section{Genes}{
 
-    * getDataByGenes - Download data for a number of genes within
-    `molecularProfileId` indicators, optionally a `sampleListId` can be
-    provided.
+* getDataByGenes - Download data for a number of genes within
+\code{molecularProfileId} indicators, optionally a \code{sampleListId} can be
+provided.
 }
 
 \examples{

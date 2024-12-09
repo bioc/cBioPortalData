@@ -24,7 +24,7 @@ loadStudy(
 }
 \arguments{
 \item{cancer_study_id}{character(1) The study identifier from cBioPortal as
-seen in the dataset links at \url{https://www.cbioportal.org/datasets}}
+seen in the dataset links at \url{https://www.cbioportal.org/datasets}.}
 
 \item{use_cache}{logical(1) (default TRUE) create the default cache location
 and use it to track downloaded data. If data found in the cache, data will
@@ -66,9 +66,9 @@ the \code{exdir} folder (default TRUE)}
 }
 \value{
 \itemize{
-\item {downloadStudy - The file location of the data tarball}
-\item {untarStudy - The directory location of the contents}
-\item {loadStudy - A MultiAssayExperiment-class object}
+\item downloadStudy - The file location of the data tarball
+\item untarStudy - The directory location of the contents
+\item loadStudy - A MultiAssayExperiment-class object
 }
 }
 \description{

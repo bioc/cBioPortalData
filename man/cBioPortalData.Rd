@@ -18,14 +18,14 @@ cBioPortalData(
 )
 }
 \arguments{
-\item{api}{An API object of class `cBioPortal` from the `cBioPortal`
+\item{api}{An API object of class \code{cBioPortal} from the \code{cBioPortal}
 function}
 
 \item{studyId}{character(1) Indicates the "studyId" as taken from
-`getStudies`}
+\code{getStudies}}
 
 \item{genePanelId}{character(1) Identifies the gene panel, as obtained
-from the `genePanels` function}
+from the \code{genePanels} function}
 
 \item{genes}{character() Either Entrez gene identifiers or Hugo gene
 symbols. When included, the 'by' argument indicates the type of

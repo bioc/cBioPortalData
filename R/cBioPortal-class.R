@@ -10,7 +10,7 @@
 #'     \link[AnVIL:Service]{AnVIL} package.
 #'
 #' @details This class takes the static API as provided at
-#'     \url{https://www.cbioportal.org/api/v2/api-docs} and creates an R object
+#'     <https://www.cbioportal.org/api/v2/api-docs> and creates an R object
 #'     with the help from underlying infrastructure (i.e.,
 #'     \link[rapiclient:rapiclient-package]{rapiclient} and
 #'     \link[AnVIL:Service]{AnVIL}) to give the user a unified representation
@@ -20,11 +20,9 @@
 #'
 #' @importFrom methods new
 #'
-#' @return A \code{cBioPortal} class instance
+#' @return A `cBioPortal` class instance
 #'
-#' @seealso  \link{cBioPortal}, \linkS4class{Service}
-#'
-#' @md
+#' @seealso  [cBioPortal], \linkS4class{Service}
 #'
 #' @examples
 #'
@@ -43,7 +41,7 @@
 #' @importFrom methods callNextMethod
 #'
 #' @param x A \linkS4class{Service} instance or API representation as
-#'     given by the \link{cBioPortal} function.
+#'     given by the [cBioPortal] function.
 #'
 #' @inheritParams AnVIL::operations
 #'

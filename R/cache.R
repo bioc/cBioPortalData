@@ -42,9 +42,8 @@
 #' @section setCache:
 #' Specify the directory location of the data cache. By default, it will
 #' go to the user directory as given by:
-#' \preformatted{
+#'
 #'     tools::R_user_dir("cBioPortalData", "cache")
-#' }
 #'
 #' @section removePackCache:
 #' Some files may become corrupt when downloading, this function allows
@@ -65,8 +64,6 @@
 #' @param dry.run logical Whether or not to remove cache files (default TRUE).
 #'
 #' @param ... For `cBioCache`, arguments passed to `setCache`
-#'
-#' @md
 #'
 #' @examples
 #'

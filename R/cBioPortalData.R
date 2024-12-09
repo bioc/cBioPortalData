@@ -180,7 +180,7 @@ update.args <- function(args) {
 #' data. This option is best for users who wish to obtain a section of the
 #' study data that pertains to a specific molecular profile and gene panel
 #' combination. For users looking to download the entire study data as provided
-#' by the \url{https://www.cbioportal.org/datasets}, refer to `cBioDataPack`.
+#' by the <https://www.cbioportal.org/datasets>, refer to `cBioDataPack`.
 #'
 #' @details We are able to succesfully represent 98 percent of the study
 #'     identifiers as `MultiAssayExperiment` objects as obtained via
@@ -207,8 +207,6 @@ update.args <- function(args) {
 #'   `ask = FALSE`. The argument will also be used when a cache directory needs
 #'   to be created when using `downloadStudy`.
 #'
-#' @md
-#'
 #' @examples
 #'
 #' cbio <- cBioPortal()
@@ -230,7 +228,7 @@ update.args <- function(args) {
 #'
 #' @return A \linkS4class{MultiAssayExperiment} object
 #'
-#' @seealso \link{cBioDataPack}, \link{removeDataCache}
+#' @seealso [cBioDataPack], [removeDataCache]
 #'
 #' @export
 cBioPortalData <-

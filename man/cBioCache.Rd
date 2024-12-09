@@ -50,9 +50,9 @@ a cache if not already created. A specific directory can be used via
 
 Specify the directory location of the data cache. By default, it will
 go to the user directory as given by:
-\preformatted{
-    tools::R_user_dir("cBioPortalData", "cache")
-}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{tools::R_user_dir("cBioPortalData", "cache")
+}\if{html}{\out{</div>}}
 }
 
 \section{removePackCache}{

@@ -204,7 +204,7 @@ cbioportal2clinicaldf <- function(files) {
 #' `use_cache` is `TRUE`.
 #'
 #' @param cancer_study_id character(1) The study identifier from cBioPortal as
-#' seen in the dataset links at \url{https://www.cbioportal.org/datasets}
+#' seen in the dataset links at <https://www.cbioportal.org/datasets>.
 #'
 #' @param use_cache logical(1) (default TRUE) create the default cache location
 #' and use it to track downloaded data. If data found in the cache, data will
@@ -244,15 +244,13 @@ cbioportal2clinicaldf <- function(files) {
 #' @param cleanup logical(1) whether to delete the `untar`-red contents from
 #' the `exdir` folder (default TRUE)
 #'
-#' @return \itemize{
-#'   \item {downloadStudy - The file location of the data tarball}
-#'   \item {untarStudy - The directory location of the contents}
-#'   \item {loadStudy - A MultiAssayExperiment-class object}
-#' }
+#' @return
+#'   * downloadStudy - The file location of the data tarball
+#'   * untarStudy - The directory location of the contents
+#'   * loadStudy - A MultiAssayExperiment-class object
 #'
-#' @md
-#'
-#' @seealso \link{cBioDataPack}, \linkS4class{MultiAssayExperiment}
+#' @seealso [cBioDataPack],
+#' [MultiAssayExperiment][MultiAssayExperiment::MultiAssayExperiment-class]
 #'
 #' @examples
 #'
@@ -540,13 +538,11 @@ loadStudy <- function(
 #'
 #' @return A \linkS4class{MultiAssayExperiment} object
 #'
-#' @seealso \url{https://www.cbioportal.org/datasets}, \link{cBioPortalData},
-#'   \link{removePackCache}
+#' @seealso <https://www.cbioportal.org/datasets>, [cBioPortalData],
+#'   [removePackCache]
 #'
 #' @author Levi Waldron, Marcel R., Ino dB.
 #' @include utils.R
-#'
-#' @md
 #'
 #' @examples
 #'

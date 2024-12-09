@@ -19,14 +19,14 @@ removeDataCache(
 )
 }
 \arguments{
-\item{api}{An API object of class `cBioPortal` from the `cBioPortal`
+\item{api}{An API object of class \code{cBioPortal} from the \code{cBioPortal}
 function}
 
 \item{studyId}{character(1) Indicates the "studyId" as taken from
-`getStudies`}
+\code{getStudies}}
 
 \item{genePanelId}{character(1) Identifies the gene panel, as obtained
-from the `genePanels` function}
+from the \code{genePanels} function}
 
 \item{genes}{character() Either Entrez gene identifiers or Hugo gene
 symbols. When included, the 'by' argument indicates the type of
@@ -49,19 +49,19 @@ metadata (default: 'entrezGeneId')}
 }
 \value{
 removeDataCache: The path to the cache location when
-  `dry.run = FALSE` if the file exists. Otherwise, when `dry.run = TRUE`,
-  the function return the output of the `file.remove` operation.
+\code{dry.run = FALSE} if the file exists. Otherwise, when \code{dry.run = TRUE},
+the function return the output of the \code{file.remove} operation.
 }
 \description{
-`cBioPortalData` no longer caches data from API responses;
-  therefore, `removeDataCache` is no longer needed. It will be removed
-  as soon as the next release of Bioconductor.
+\code{cBioPortalData} no longer caches data from API responses;
+therefore, \code{removeDataCache} is no longer needed. It will be removed
+as soon as the next release of Bioconductor.
 }
 \section{removeDataCache}{
 
 Remove the computed cache location based on the function inputs to
-`cBioPortalData()`. To remove the cache, simply replace the
-`cBiocPortalData()` function name with `removeDataCache()`; see the example.
+\code{cBioPortalData()}. To remove the cache, simply replace the
+\code{cBiocPortalData()} function name with \code{removeDataCache()}; see the example.
 If the computed cache location is not found, it will return an empty vector.
 }
 
