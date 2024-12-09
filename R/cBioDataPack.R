@@ -511,8 +511,9 @@ loadStudy <- function(
 #'
 #' @description The `cBioDataPack` function allows the user to
 #' download and process cancer study datasets found in MSKCC's cBioPortal.
-#' Output datasets use the \linkS4class{MultiAssayExperiment} data
-#' representation to faciliate analysis and data management operations.
+#' Output datasets use the
+#' [MultiAssayExperiment][MultiAssayExperiment::MultiAssayExperiment-class]
+#' data representation to faciliate analysis and data management operations.
 #'
 #' @details The full list of study identifiers (`studyId`s) can obtained from
 #' `getStudies()`. Currently, only ~ 72% of datasets can be represented as
@@ -536,7 +537,9 @@ loadStudy <- function(
 #' @inheritParams downloadStudy
 #' @inheritParams cBioPortalData
 #'
-#' @return A \linkS4class{MultiAssayExperiment} object
+#' @return A
+#'   [MultiAssayExperiment][MultiAssayExperiment::MultiAssayExperiment-class]
+#'   object
 #'
 #' @seealso <https://www.cbioportal.org/datasets>, [cBioPortalData],
 #'   [removePackCache]

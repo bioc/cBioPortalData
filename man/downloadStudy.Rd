@@ -103,5 +103,6 @@ loadStudy(file_dir)
 
 }
 \seealso{
-\link{cBioDataPack}, \linkS4class{MultiAssayExperiment}
+\link{cBioDataPack},
+\link[MultiAssayExperiment:MultiAssayExperiment-class]{MultiAssayExperiment}
 }

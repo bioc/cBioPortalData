@@ -226,7 +226,9 @@ update.args <- function(args) {
 #'         c("acc_tcga_rppa", "acc_tcga_linear_CNA", "acc_tcga_mutations")
 #' )
 #'
-#' @return A \linkS4class{MultiAssayExperiment} object
+#' @return A
+#'   [MultiAssayExperiment][MultiAssayExperiment::MultiAssayExperiment-class]
+#'   object
 #'
 #' @seealso [cBioDataPack], [removeDataCache]
 #'

@@ -45,13 +45,16 @@ to be created when using \code{downloadStudy}.}
 'pedcbioportal.kidsfirstdrc.org'}
 }
 \value{
-A \linkS4class{MultiAssayExperiment} object
+A
+\link[MultiAssayExperiment:MultiAssayExperiment-class]{MultiAssayExperiment}
+object
 }
 \description{
 The \code{cBioDataPack} function allows the user to
 download and process cancer study datasets found in MSKCC's cBioPortal.
-Output datasets use the \linkS4class{MultiAssayExperiment} data
-representation to faciliate analysis and data management operations.
+Output datasets use the
+\link[MultiAssayExperiment:MultiAssayExperiment-class]{MultiAssayExperiment}
+data representation to faciliate analysis and data management operations.
 }
 \details{
 The full list of study identifiers (\code{studyId}s) can obtained from

@@ -55,7 +55,9 @@ non-interactive session, data download will be attempted; equivalent to
 to be created when using \code{downloadStudy}.}
 }
 \value{
-A \linkS4class{MultiAssayExperiment} object
+A
+\link[MultiAssayExperiment:MultiAssayExperiment-class]{MultiAssayExperiment}
+object
 }
 \description{
 Obtain a \code{MultiAssayExperiment} object for a particular gene panel,
