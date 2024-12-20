@@ -26,8 +26,6 @@ if (identical(tolower(Sys.getenv("IS_BIOC_BUILD_MACHINE")), "true")) {
             comp_api[[api_stud]] <- success
         else
             err_api[[api_stud]] <- dats
-        ## try to free up memory
-        gc()
         ## clean up data
         removeDataCache(
             cbioportal, studyId = api_stud, genePanelId = "IMPACT341",
@@ -71,19 +69,16 @@ err_api <- Filter(nzchar, err_api)
 err_api_info <- lapply(setNames(nm = unique(err_api)),
     function(x) names(err_api)[err_api == x])
 # table(err_api)
-save(err_api_info, file = "inst/extdata/api/err_api_info.rda")
+err_api_info_file <- "inst/extdata/api/err_api_info.json"
+jsonlite::write_json(err_api_info, path = err_api_info_file)
+jsonlite::fromJSON(err_api_info_file)
 
 api_build <- rev(stack(comp_api))
 names(api_build) <- c("studyId", "api_build")
+api_build[["studyId"]] <- as.character(api_build[["studyId"]])
 
-denv <- new.env(parent = emptyenv())
-api_file <- system.file(
-    "extdata", "api", "api_build.rda",
-    package = "cBioPortalData", mustWork = TRUE
-)
-load(api_file, envir = denv)
-prev <- denv[["api_build"]]
+api_file_json <- "inst/extdata/api/api_build.json"
+prev <- jsonlite::fromJSON(api_file_json) |> as.data.frame()
 
-if (!identical(prev, api_build)) {
-    save(api_build, file = "inst/extdata/api/api_build.rda")
-}
+if (!identical(prev, api_build))
+    api_build |> jsonlite::write_json(path = api_file_json, pretty = TRUE)

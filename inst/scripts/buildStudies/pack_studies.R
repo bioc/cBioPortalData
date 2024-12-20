@@ -57,20 +57,17 @@ err_pack <- Filter(nchar, err_pack)
 err_pack_info <- lapply(setNames(nm = unique(err_pack)),
     function(x) names(err_pack)[err_pack == x])
 # table(err_pack)
-save(err_pack_info, file = "inst/extdata/pack/err_pack_info.rda")
+
+err_pack_info_file <- "inst/extdata/pack/err_pack_info.json"
+jsonlite::write_json(err_pack_info, path = err_pack_info_file)
+jsonlite::fromJSON(err_pack_info_file)
 
 pack_build <- rev(stack(comp_pack))
 names(pack_build) <- c("studyId", "pack_build")
+pack_build[["studyId"]] <- as.character(pack_build[["studyId"]])
 
-denv <- new.env(parent = emptyenv())
-pack_file <- system.file(
-    "extdata", "pack", "pack_build.rda",
-    package = "cBioPortalData", mustWork = TRUE
-)
-load(pack_file, envir = denv)
-prev <- denv[["pack_build"]]
+pack_file_json <- "inst/extdata/pack/pack_build.json"
+prev <- jsonlite::fromJSON(pack_file_json) |> as.data.frame()
 
-if (!identical(prev, pack_build)) {
-    save(pack_build, file = "inst/extdata/pack/pack_build.rda")
-}
-
+if (!identical(prev, pack_build))
+    pack_build |> jsonlite::write_json(path = pack_file_json, pretty = TRUE)

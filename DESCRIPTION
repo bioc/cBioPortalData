@@ -39,12 +39,13 @@ Imports:
     utils
 Suggests:
     BiocStyle,
+    jsonlite,
     knitr,
     survival,
     survminer,
     rmarkdown,
     testthat
-Date: 2024-08-22
+Date: 2024-12-20
 License: AGPL-3
 Encoding: UTF-8
 VignetteBuilder: knitr

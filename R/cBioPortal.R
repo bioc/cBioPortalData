@@ -154,18 +154,24 @@ cBioPortal <- function(
     )
 }
 
+#' @importFrom BiocBaseUtils checkInstalled
 .loadReportData <- function() {
+    checkInstalled("jsonlite")
     denv <- new.env(parent = emptyenv())
-    api_file <- system.file(
-        "extdata", "api", "api_build.rda",
+    api_build <- system.file(
+        "extdata", "api", "api_build.json",
         package = "cBioPortalData", mustWork = TRUE
-    )
-    pack_file <- system.file(
-        "extdata", "pack", "pack_build.rda",
+    ) |>
+        jsonlite::fromJSON() |>
+        as.data.frame()
+    pack_build <- system.file(
+        "extdata", "pack", "pack_build.json",
         package = "cBioPortalData", mustWork = TRUE
-    )
-    load(api_file, envir = denv)
-    load(pack_file, envir = denv)
+    ) |>
+        jsonlite::fromJSON() |>
+        as.data.frame()
+    denv[["api_build"]] <- api_build
+    denv[["pack_build"]] <- pack_build
 
     denv
 }
