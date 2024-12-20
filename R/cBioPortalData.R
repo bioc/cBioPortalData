@@ -114,7 +114,12 @@
         allName <- if (!is.null(altNames)) {
             all.equal(
                 altNames,
-                Reduce(intersect, split(metainfo[[newby]], metainfo[["patientId"]]))
+                Reduce(
+                    intersect,
+                    split(
+                        metainfo[[newby]], metainfo[["patientId"]]
+                    )
+                )
             )
         } else { FALSE }
         if (isTRUE(allName)) {
